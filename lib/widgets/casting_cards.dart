@@ -10,7 +10,8 @@ class CastingCards extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final moviesProvider = Provider.of<MoviesProvider>(context, listen: false);
+    final moviesProvider =
+        Provider.of<MoviesProvider>(context, listen: false);
 
     return FutureBuilder(
       future: moviesProvider.getCasting(movieId),
@@ -29,7 +30,8 @@ class CastingCards extends StatelessWidget {
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: cast.length,
-            itemBuilder: (BuildContext contex, int index) => _CastCard(
+            itemBuilder: (BuildContext contex, int index) =>
+                _CastCard(
               actor: cast[index],
             ),
           ),
@@ -56,7 +58,9 @@ class _CastCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             child: FadeInImage(
               placeholder: const AssetImage("assets/no-image.jpg"),
-              image: NetworkImage(actor.getFullProfile()),
+              image: actor.profilePath.isNotEmpty
+                  ? NetworkImage(actor.getFullProfile())
+                  : const AssetImage("assets/no-image.jpg"),
               fit: BoxFit.cover,
               height: 140,
               width: 100,

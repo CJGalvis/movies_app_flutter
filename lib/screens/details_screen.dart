@@ -55,7 +55,9 @@ class _CustomAppBar extends StatelessWidget {
         ),
         background: FadeInImage(
           placeholder: const AssetImage("assets/loading.gif"),
-          image: NetworkImage(movie.getFullBackdropPath()),
+          image: movie.backdropPath.isNotEmpty
+              ? NetworkImage(movie.getFullBackdropPath())
+              : const AssetImage("assets/no-image.jpg"),
           fit: BoxFit.cover,
         ),
       ),
@@ -84,7 +86,9 @@ class _PosterAndTitle extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
               child: FadeInImage(
                 placeholder: const AssetImage("assets/no-image.jpg"),
-                image: NetworkImage(movie.getFullPosterPath()),
+                image: movie.posterPath.isNotEmpty
+                    ? NetworkImage(movie.getFullPosterPath())
+                    : const AssetImage("assets/no-image.jpg"),
                 height: 180,
               ),
             ),
@@ -94,7 +98,8 @@ class _PosterAndTitle extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ConstrainedBox(
-                constraints: BoxConstraints(maxWidth: size.width - 200),
+                constraints:
+                    BoxConstraints(maxWidth: size.width - 200),
                 child: Text(
                   movie.originalTitle,
                   overflow: TextOverflow.ellipsis,
@@ -131,7 +136,8 @@ class _Overview extends StatelessWidget {
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      padding:
+          const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Text(
         movie.overview,
         textAlign: TextAlign.justify,

@@ -42,7 +42,8 @@ class SearchMovieDelegate extends SearchDelegate {
       );
     }
 
-    final moviesProvider = Provider.of<MoviesProvider>(context, listen: false);
+    final moviesProvider =
+        Provider.of<MoviesProvider>(context, listen: false);
     moviesProvider.getSuggestionByQuery(query);
 
     return StreamBuilder(
@@ -86,13 +87,16 @@ class _MovieItem extends StatelessWidget {
         tag: movie.heroId!,
         child: FadeInImage(
           placeholder: const AssetImage('assets/no-image.jpg'),
-          image: NetworkImage(movie.getFullPosterPath()),
+          image: movie.posterPath.isNotEmpty
+              ? NetworkImage(movie.getFullPosterPath())
+              : const AssetImage("assets/no-image.jpg"),
           fit: BoxFit.cover,
         ),
       ),
       title: Text(movie.title),
       subtitle: Text('${movie.voteCount.toString()} votos'),
-      onTap: () => Navigator.pushNamed(context, 'details', arguments: movie),
+      onTap: () =>
+          Navigator.pushNamed(context, 'details', arguments: movie),
     );
   }
 }

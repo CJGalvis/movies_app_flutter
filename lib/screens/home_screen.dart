@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_movies_provider/providers/movie_provider.dart';
-import 'package:my_movies_provider/search/serach_delegate.dart';
+import 'package:my_movies_provider/search/search_delegate.dart';
 import 'package:my_movies_provider/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 

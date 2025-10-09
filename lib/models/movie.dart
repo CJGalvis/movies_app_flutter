@@ -32,11 +32,11 @@ class Movie {
     required this.voteCount,
   });
 
-  getFullPosterPath() {
+  String getFullPosterPath() {
     return 'https://image.tmdb.org/t/p/w500$posterPath';
   }
 
-  getFullBackdropPath() {
+  String getFullBackdropPath() {
     return 'https://image.tmdb.org/t/p/w500$backdropPath';
   }
 
@@ -49,8 +49,8 @@ class Movie {
         originalTitle: json["original_title"],
         overview: json["overview"],
         popularity: json["popularity"]?.toDouble(),
-        posterPath: json["poster_path"],
-        releaseDate: json["release_date"],
+        posterPath: json["poster_path"] ?? '',
+        releaseDate: json["release_date"] ?? '',
         title: json["title"],
         video: json["video"],
         voteAverage: json["vote_average"]?.toDouble(),
