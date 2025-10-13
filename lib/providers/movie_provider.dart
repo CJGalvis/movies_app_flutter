@@ -29,7 +29,7 @@ class MoviesProvider extends ChangeNotifier {
     getMoviesPopular(page);
   }
 
-  _getData(String endpoint, {int page = 1}) async {
+  dynamic _getData(String endpoint, {int page = 1}) async {
     var url = Uri.https(_baseUrl, '3/$endpoint', {
       'language': _languaje,
       'api_key': _apiKey,
@@ -40,14 +40,14 @@ class MoviesProvider extends ChangeNotifier {
     return response;
   }
 
-  getMovies() async {
+  void getMovies() async {
     final response = await _getData('movie/now_playing');
     final data = MoviesResponse.fromJson(json.decode(response.body));
     onDisplayMovies = data.results;
     notifyListeners();
   }
 
-  getMoviesPopular(int pagination) async {
+  void getMoviesPopular(int pagination) async {
     final response = await _getData('movie/popular', page: pagination);
     final data = PopularResponse.fromJson(json.decode(response.body));
     onDisplayMoviesPopular = [...onDisplayMoviesPopular, ...data.results];

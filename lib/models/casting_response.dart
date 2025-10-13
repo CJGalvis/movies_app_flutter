@@ -64,7 +64,7 @@ class Cast {
     this.job,
   });
 
-  getFullProfile() {
+  String getFullProfile() {
     return 'https://image.tmdb.org/t/p/w500/$profilePath';
   }
 
