@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:my_movies_provider/models/movie.dart';
-import 'package:my_movies_provider/widgets/zoom_context_menu_card.dart';
 
 class MovieSlider extends StatefulWidget {
   const MovieSlider({
@@ -93,58 +92,40 @@ class _MoviePoster extends StatelessWidget {
       width: 130,
       height: 190,
       margin: const EdgeInsets.symmetric(horizontal: 10),
-      child: ZoomContextMenuCard(
-        menuOptions: [
-          MenuOption(
-            'Eliminar',
-            Icons.delete_forever_outlined,
-            () {
-              print('Eliminar elemento');
+      child: Column(
+        children: [
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(
+                context,
+                'details',
+                arguments: movie,
+              );
             },
-          ),
-          MenuOption(
-            'Ocultar',
-            Icons.visibility_off_outlined,
-            () {
-              print('Ocultar elemento');
-            },
-          )
-        ],
-        child: Column(
-          children: [
-            GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(
-                  context,
-                  'details',
-                  arguments: movie,
-                );
-              },
-              child: Hero(
-                tag: movie.heroId!,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: FadeInImage(
-                    placeholder:
-                        const AssetImage("assets/no-image.jpg"),
-                    image: movie.posterPath.isNotEmpty
-                        ? NetworkImage(movie.getFullPosterPath())
-                        : const AssetImage("assets/no-image.jpg"),
-                    fit: BoxFit.cover,
-                    width: 130,
-                    height: 190,
-                  ),
+            child: Hero(
+              tag: movie.heroId!,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: FadeInImage(
+                  placeholder:
+                      const AssetImage("assets/no-image.jpg"),
+                  image: movie.posterPath.isNotEmpty
+                      ? NetworkImage(movie.getFullPosterPath())
+                      : const AssetImage("assets/no-image.jpg"),
+                  fit: BoxFit.cover,
+                  width: 130,
+                  height: 190,
                 ),
               ),
             ),
-            const SizedBox(height: 5),
-            Text(
-              movie.title,
-              overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center,
-            )
-          ],
-        ),
+          ),
+          const SizedBox(height: 5),
+          Text(
+            movie.title,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.center,
+          )
+        ],
       ),
     );
   }
